@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nice Looking Select</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+    <link rel="stylesheet" href="assets/js/highlight/styles/dark.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <nav>
+        <h1 class="title-website">Nice Looking Select</h1>
+        <div class="list-links-nav">
+            <a class="link link-nav" href="index.html">Generator</a>
+            <a class="link link-nav" href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Pros -->
+        <section id="list-pros">
+            <article class="pros">
+                <span class="title-pros"><i class="fas fa-grin-hearts icon-pros"></i>&nbsp;Amazing render&nbsp;<i class="fas fa-grin-hearts icon-pros"></i></span>
+            </article>
+            <article class="pros">
+                <span class="title-pros"><i class="fas fa-paint-brush icon-pros"></i>&nbsp;Easy to use&nbsp;<i class="fas fa-paint-brush icon-pros"></i></span>
+            </article>
+            <article class="pros">
+                <span class="title-pros"><i class="fas fa-external-link-alt icon-pros"></i>&nbsp;No external framework and/or library&nbsp;<i class="fas fa-external-link-alt icon-pros"></i></span>
+            </article>
+        </section>
+
+        <!-- Form -->
+        <section id="form">
+            <div>
+                <h2 class="title-category">Customize</h2>
+                <form id="customize-form">
+                    <div class="label-input">
+                        <label for="background-color-select">Background color :</label>
+                        <input class="input-color" id="background-color-select" type="color" value="#000000">
+                        <span class="help-input">Pick the background color.</span>
+                    </div>
+                    <div class="label-input">
+                        <label for="font-color-select">Font color :</label>
+                        <input class="input-color" id="font-color-select" type="color" value="#ffffff">
+                        <span class="help-input">Pick the font color.</span>
+                    </div>
+                    <div class="label-input">
+                        <label for="hover-color-select">Hover color :</label>
+                        <input class="input-color" id="hover-color-select" type="color" value="#0091b5">
+                        <span class="help-input">Pick the hover color.</span>
+                    </div>
+                    <div class="label-input">
+                        <label for="id-select">ID :</label>
+                        <input id="id-select" type="text">
+                        <span class="help-input">Choose your custom ID.</span>
+                    </div>
+                    <div class="label-input">
+                        <label for="title-select">Title :</label>
+                        <input id="title-select" type="text" placeholder="Title">
+                        <span class="help-input">Let this input empty if you don't want to add a title.</span>
+                    </div>
+                    <div class="label-input label-checkbox">
+                        <label for="chevrons-select">Show chevrons :</label>
+                        <input id="chevrons-select" type="checkbox" checked>
+                        <span class="help-input">Uncheck it if you don't want to show the chevrons.</span>
+                    </div>
+                    <div class="label-input">
+                        <label class="label-color" for="chevrons-color-select">Chevrons color :</label>
+                        <input class="input-color" id="chevrons-color-select" type="color" value="#ffffff">
+                        <span class="help-input">Pick the chevrons color.</span>
+                    </div>
+                    <div class="label-input">
+                        <label for="number-columns-select">Number of columns :</label>
+                        <input id="number-columns-select" type="number" placeholder="Number of columns" min="1" max="3" value="1">
+                        <span class="help-input">Choose the number of columns in the option (between 1 and 3 more can cause problems).</span>
+                    </div>
+                    <div class="label-input">
+                        <label for="options-select">Options :</label>
+                        <textarea id="options-select" placeholder="Options"></textarea>
+                        <span class="help-input">Put your options here.<br>(1 per line you can let the comma at the end of each line).</span>
+                    </div>
+                    <div class="label-input label-checkbox">
+                        <label for="options-center-select">Center the options :</label>
+                        <input id="options-center-select" type="checkbox">
+                        <span class="help-input">Check if you want to center your options.</span>
+                    </div>
+                    <button class="btn" onclick="generate()" type="button">Generate</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Result -->
+        <section id="result">
+            <div>
+                <!-- Preview -->
+                <article id="preview">
+                    <h2 class="title-category">Preview</h2>
+                    <div id="preview-no">
+                        <span>Press Generate button to preview !</span>
+                    </div>
+                    <div id="preview-yes">
+                        <button class="btn-select" id="btn-open-select" onclick="openSelect()">Select <i class="arrow arrow-down"></i></button>
+                        <div class="opened-select-hidden" id="opened-select">
+                            <button class="btn-select" id="btn-close-select" onclick="closeSelect()">Select <i class="arrow arrow-up"></i></button>
+                            <ul class="list-select" id="list-select">
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+                <!-- Snippets -->
+                <article id="snippets">
+                    <h2 class="title-category">Snippets</h2>
+                    <div id="snippet-no">
+                        <span>Press Generate button to see the snippet !</span>
+                    </div>
+                    <div id="snippet-yes">
+                        <div class="list-btn-snippet">
+                            <button class="btn btn-snippet" id="btn-HTML" onclick="changeSnippet('HTML')">HTML</button>
+                            <button class="btn btn-snippet" id="btn-CSS" onclick="changeSnippet('CSS')">CSS</button>
+                            <button class="btn btn-snippet" id="btn-JS" onclick="changeSnippet('JS')">JS</button>
+                            <div class="bloc-snippet" id="bloc-snippet-HTML">
+                                <i class="far fa-clipboard" data-clipboard-target="#code-HTML"></i>
+                                <pre class="snippet" id="snippet-HTML">
+                                    <code class="language-html" id="code-HTML">...</code>
+                                </pre>
+                            </div>
+                            <div class="bloc-snippet" id="bloc-snippet-CSS">
+                                <i class="far fa-clipboard" data-clipboard-target="#code-CSS"></i>
+                                <pre class="snippet" id="snippet-CSS">
+                                    <code class="language-css" id="code-CSS">...</code>
+                                </pre>
+                            </div>
+                            <div class="bloc-snippet" id="bloc-snippet-JS">
+                                <i class="far fa-clipboard" data-clipboard-target="#code-JS"></i>
+                                <pre class="snippet" id="snippet-JS">
+                                    <code class="language-js" id="code-JS">...</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>&copy; <span id="year"></span> Nice Looking Select</span>
+        <a class="github-button link link-footer" href="https://github.com/sebastien-d-me/nice-looking-select" data-icon="octicon-star" data-show-count="true" aria-label="Star sebastien-d-me/nice-looking-select on GitHub">Star</a>
+        <a class="link link-footer" href="legal-notices.html">Legal notices</a>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="assets/js/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/generator.js"></script>
+</body>
+</html>
